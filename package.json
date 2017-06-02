@@ -8,7 +8,7 @@
   "scripts": {
     "start": "concurrently -p \"[{name}]\" -n \"HTTP,JS,LESS\" -c \"bgBlue.bold,bgMagenta.bold,bgGreen.bold\" \"npm run http-server\" \"npm run watch-js\" \"npm run watch-styles\"",
     "http-server": "http-server -c0 .",
-    "watch-js": "API_URL=http://localhost:9001 watchify ./scripts/index.js -t [ babelify --presets [ es2015 ] ] -t envify --debug --verbose -o ./bundle.js",
+    "watch-js": "watchify ./scripts/index.js -t [ babelify --presets [ es2015 ] ] -t envify --debug --verbose -o ./bundle.js",
     "watch-styles": "npm run build-styles-dev && chokidar \"**/*.less\" \"./styles/**/*.css\" -c \"npm run build-styles-dev\"",
     "build": "npm run build-js && npm run build-styles",
     "build-js": "NODE_ENV=production browserify ./scripts/index.js -t [ babelify --presets [ es2015 ] ] -t envify -o ./bundle.js && npm run minify-js",
@@ -20,6 +20,7 @@
     "minify-css": "cleancss --skip-aggressive-merging --skip-restructuring ./bundle.css -o ./bundle.css"
   },
   "dependencies": {
+    "axios": "^0.16.1",
     "bluebird": "^3.4.6",
     "fastclick": "^1.0.6",
     "lodash": "^4.15.0",
